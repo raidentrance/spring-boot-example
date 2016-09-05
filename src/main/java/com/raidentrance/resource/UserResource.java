@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component;
 public class UserResource {
 
 	@GET
-	public String message() {
+	public String getUsers() {
 		return "{\"username\":\"raidentrance\"}";
 	}
 
