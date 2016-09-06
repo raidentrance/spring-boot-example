@@ -1,48 +1,33 @@
 /**
  * 
  */
-package com.raidentrance.entities;
+package com.raidentrance.dto;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import org.springframework.hateoas.ResourceSupport;
 
 /**
  * @author raidentrance
  *
  */
-@Entity
-@Table(name = "USER")
-public class User implements Serializable {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "USER_ID")
-	private Integer idUser;
+public class UserDto extends ResourceSupport implements Serializable {
 
-	@Column(name = "USERNAME")
+	private Long idUser;
+
 	private String username;
 
-	@Column(name = "PASSWORD")
 	private String password;
 
-	@JoinColumn(name = "ROLE_ID", referencedColumnName = "ID_ROLE")
-	@ManyToOne(optional = false)
-	private Role role;
+	private RoleDto role;
 
-	private static final long serialVersionUID = -5290198995172316155L;
+	private static final long serialVersionUID = 6985016974531016761L;
 
-	public Integer getIdUser() {
+	public Long getIdUser() {
 		return idUser;
 	}
 
-	public void setIdUser(Integer idUser) {
+	public void setIdUser(Long idUser) {
 		this.idUser = idUser;
 	}
 
@@ -62,23 +47,18 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-	public Role getRole() {
+	public RoleDto getRole() {
 		return role;
 	}
 
-	public void setRole(Role role) {
+	public void setRole(RoleDto role) {
 		this.role = role;
-	}
-
-	@Override
-	public String toString() {
-		return "User [idUser=" + idUser + ", username=" + username + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
+		int result = super.hashCode();
 		result = prime * result + ((idUser == null) ? 0 : idUser.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
@@ -88,11 +68,11 @@ public class User implements Serializable {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		UserDto other = (UserDto) obj;
 		if (idUser == null) {
 			if (other.idUser != null)
 				return false;
