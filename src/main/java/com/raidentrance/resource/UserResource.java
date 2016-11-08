@@ -8,8 +8,15 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+
+import com.raidentrance.model.ServiceException;
 
 /**
  * @author raidentrance
@@ -22,9 +29,28 @@ import org.springframework.stereotype.Component;
 @Produces(MediaType.APPLICATION_JSON)
 public class UserResource {
 
+	private static final Logger log = LoggerFactory.getLogger(UserResource.class);
+
+	@Value("${custom.walmart.property}")
+	private String value;
+
 	@GET
 	public String getUsers() {
-		return "{\"username\":\"raidentrance\"}";
+		log.info("Getting user");
+		return String.format("{\"username\":\"%s\"}", value);
+	}
+
+	
+	@GET
+	@Path("/error")
+	public Response sampleError() throws ServiceException {
+		throw new ServiceException(HttpStatus.NOT_FOUND.value(), "Sample Error Message", 1);
+	}
+
+	@GET
+	@Path("/error/generic")
+	public Response sampleGenericError() {
+		throw new NullPointerException();
 	}
 
 }

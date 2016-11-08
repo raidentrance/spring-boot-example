@@ -44,4 +44,16 @@
 			</plugin>
 		</plugins>
 	</build>
+	<distributionManagement>
+		<repository>
+			<id>internal-repository</id>
+			<name>Walmart Releases</name>
+			<url>http://repo.wal-mart.com/content/repositories/walmart</url>
+		</repository>
+		<snapshotRepository>
+			<id>internal-repository</id>
+			<name>Walmart Snapshots</name>
+			<url>http://repo.wal-mart.com/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
 </project>
