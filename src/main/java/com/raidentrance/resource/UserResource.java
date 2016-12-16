@@ -3,8 +3,6 @@
  */
 package com.raidentrance.resource;
 
-import java.util.List;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -16,11 +14,8 @@ import javax.ws.rs.core.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.raidentrance.assembler.UserAssembler;
-import com.raidentrance.entities.User;
-import com.raidentrance.repositories.UserRepository;
-
-import jersey.repackaged.com.google.common.collect.Lists;
+import com.raidentrance.model.ServiceException;
+import com.raidentrance.service.UserService;
 
 /**
  * @author raidentrance
@@ -34,22 +29,17 @@ import jersey.repackaged.com.google.common.collect.Lists;
 public class UserResource {
 
 	@Autowired
-	private UserAssembler userAssembler;
-
-	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
 
 	@GET
 	public Response getUsers() {
-		List<User> users = Lists.newArrayList(userRepository.findAll());
-		return Response.ok(userAssembler.toResources(users)).build();
+		return Response.ok(userService.findAll()).build();
 	}
 
 	@GET
 	@Path("/{idUser}")
-	public Response getById(@PathParam("idUser") Integer idUser) {
-		User requested = userRepository.findOne(idUser);
-		return Response.ok(userAssembler.toResource(requested)).build();
+	public Response getById(@PathParam("idUser") Integer idUser) throws ServiceException {
+		return Response.ok(userService.findOne(idUser)).build();
 	}
 
 }
