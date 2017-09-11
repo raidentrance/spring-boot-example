@@ -33,7 +33,7 @@ public class UserResource {
 	@GET
 	public String getUsers() {
 		log.info("Getting user");
-		return String.format("{\"username\":\"%s\"}");
+		return String.format("{\"username\":\"raidentrance\"}");
 	}
 
 	@GET
