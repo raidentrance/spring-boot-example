@@ -11,12 +11,12 @@ import com.raidentrance.model.ErrorMessage;
 import com.raidentrance.model.ServiceException;
 
 /**
- * @author maagapi
+ * @author raidentrance
  *
  */
 
 @Provider
-public class RestExceptionMapper implements ExceptionMapper<ServiceException> {
+public class ServiceExceptionMapper implements ExceptionMapper<ServiceException> {
 
 	@Override
 	public Response toResponse(ServiceException ex) {

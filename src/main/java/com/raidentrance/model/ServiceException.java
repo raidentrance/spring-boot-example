@@ -4,7 +4,7 @@
 package com.raidentrance.model;
 
 /**
- * @author maagapi
+ * @author raidentrance
  *
  */
 

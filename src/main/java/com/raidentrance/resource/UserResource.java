@@ -12,7 +12,6 @@ import javax.ws.rs.core.Response;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
@@ -31,16 +30,12 @@ public class UserResource {
 
 	private static final Logger log = LoggerFactory.getLogger(UserResource.class);
 
-	@Value("${custom.walmart.property}")
-	private String value;
-
 	@GET
 	public String getUsers() {
 		log.info("Getting user");
-		return String.format("{\"username\":\"%s\"}", value);
+		return String.format("{\"username\":\"%s\"}");
 	}
 
-	
 	@GET
 	@Path("/error")
 	public Response sampleError() throws ServiceException {

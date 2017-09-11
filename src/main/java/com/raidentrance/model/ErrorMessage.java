@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * @author maagapi
+ * @author raidentrance
  *
  */
 @JsonInclude(Include.NON_NULL)

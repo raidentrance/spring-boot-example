@@ -13,16 +13,14 @@ import org.springframework.http.HttpStatus;
 import com.raidentrance.model.ErrorMessage;
 
 /**
- * @author maagapi
+ * @author raidentrance
  *
  */
 @Provider
 public class GenericExceptionMapper implements ExceptionMapper<Throwable> {
 
 	public Response toResponse(Throwable ex) {
-
 		ErrorMessage errorMessage = new ErrorMessage();
-		errorMessage.setCode(1);
 		errorMessage.setMessage(ex.getMessage());
 		StringWriter errorStackTrace = new StringWriter();
 		ex.printStackTrace(new PrintWriter(errorStackTrace));
