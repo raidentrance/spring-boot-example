@@ -1,0 +1,24 @@
+spring:
+    profiles: 
+        active: dev 
+---
+spring:
+    profiles: dev
+com:
+    raidentrance:
+      app:
+        name: Spring boot dev
+---
+spring:
+    profiles: qa
+com:
+    raidentrance:
+      app:
+        name: Spring boot qa
+---
+spring:
+    profiles: prod
+com:
+    raidentrance:
+      app:
+        name: Spring boot prod
