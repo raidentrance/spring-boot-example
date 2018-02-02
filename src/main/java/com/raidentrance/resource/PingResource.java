@@ -3,6 +3,7 @@
  */
 package com.raidentrance.resource;
 
+import javax.annotation.PostConstruct;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -11,27 +12,35 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.metrics.CounterService;
 import org.springframework.stereotype.Component;
 
+import com.codahale.metrics.Meter;
+import com.codahale.metrics.MetricRegistry;
+
 /**
- * @author raidentrance
+ * @author maagapi
  *
  */
 
 @Component
-@Path("/users")
+@Path("/ping")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class UserResource {
+public class PingResource {
+
+	private Meter meter;
 
 	@Autowired
-	private CounterService counterService;
-
-	@GET
-	public Response getUsers() {
-		counterService.increment("services.system.myservice.invoked");
-		return Response.ok("It works !").build();
+	private MetricRegistry metricRegistry;
+	
+	@PostConstruct
+	public void init() {
+		meter = metricRegistry.meter("pings");
 	}
 
+	@GET
+	public Response ping() {
+		meter.mark();
+		return Response.ok("It works !").build();
+	}
 }
