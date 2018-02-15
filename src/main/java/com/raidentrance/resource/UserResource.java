@@ -6,13 +6,14 @@ package com.raidentrance.resource;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.metrics.CounterService;
 import org.springframework.stereotype.Component;
+
+import com.codahale.metrics.annotation.Timed;
 
 /**
  * @author raidentrance
@@ -25,12 +26,16 @@ import org.springframework.stereotype.Component;
 @Produces(MediaType.APPLICATION_JSON)
 public class UserResource {
 
-	@Autowired
-	private CounterService counterService;
+	@GET
+	@Timed(name="get.all.users")
+	public Response getUsers() {
+		return Response.ok("It works !").build();
+	}
 
 	@GET
-	public Response getUsers() {
-		counterService.increment("services.system.myservice.invoked");
+	@Path("/{userId}")
+	@Timed(name="get.single.user",absolute=false)
+	public Response getUserById(@PathParam("userId") String id) {
 		return Response.ok("It works !").build();
 	}
 

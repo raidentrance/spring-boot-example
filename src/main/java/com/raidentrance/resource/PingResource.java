@@ -35,12 +35,12 @@ public class PingResource {
 	
 	@PostConstruct
 	public void init() {
-		meter = metricRegistry.meter("pings");
+		meter = metricRegistry.meter("custom.raidentrance.metric");
 	}
 
 	@GET
 	public Response ping() {
 		meter.mark();
-		return Response.ok("It works !").build();
+		return Response.ok("Pong !").build();
 	}
 }
