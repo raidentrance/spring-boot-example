@@ -11,9 +11,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.codahale.metrics.Counter;
 import com.codahale.metrics.Meter;
 import com.codahale.metrics.MetricRegistry;
 
@@ -28,19 +31,22 @@ import com.codahale.metrics.MetricRegistry;
 @Produces(MediaType.APPLICATION_JSON)
 public class PingResource {
 
-	private Meter meter;
+	private Counter meter;
 
 	@Autowired
 	private MetricRegistry metricRegistry;
-	
+
+	public static final Logger log = LoggerFactory.getLogger(PingResource.class);
+
 	@PostConstruct
 	public void init() {
-		meter = metricRegistry.meter("custom.raidentrance.metric");
+		meter = metricRegistry.counter("associates.created");
 	}
 
 	@GET
 	public Response ping() {
-		meter.mark();
+		log.info("Ping executed");
+		meter.inc();
 		return Response.ok("Pong !").build();
 	}
 }
